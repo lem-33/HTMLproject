@@ -1,0 +1,10 @@
+body{
+  background-color: #0450C2;  
+  color: white;               
+}
+.tete {
+  position: fixed;
+  right: 20px;   
+  bottom: 20px;
+  width: 300px;
+}
