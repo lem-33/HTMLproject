@@ -1,0 +1,18 @@
+.nick_toi{
+    color: red;
+    font-size: 1000%;
+}
+.titredepage{
+    font-size:700%;
+    text-align: center;
+}
+.bodi{
+    background: linear-gradient(to right,green, yellow);
+}
+.bodii{
+    background: linear-gradient(to right, green, pink, black, white, yellow, red, blue, purple);
+}
+.recette{
+    font-size: 400%;
+    color:black;
+}

@@ -1,0 +1,94 @@
+                                HTML
+<p>mettre du texte <br> mettre a la ligne </p>
+<h1>mettre un titre</h1>
+<h2>mettre un titre plus petit</h2>
+pas de h3 avant h2 ou h1 respecter la  hierarchie 
+<img src="pour_placer_des_image.png" alt="description de l'image">
+<div> permet de creer une bordure autour du texte </div>
+<span> permet de styliser un éléments qui reste dans le flux du texte </span>
+<ul> 
+    permet de faire des listes non ordonnées
+    <li>permet d'écrire dans les liste</li>
+</ul>
+<ol>
+    1permet de faire des listes ordonéées
+</ol>
+<a href="http://permetdemettredesliens.com">espace pour decrire le lien</a>
+<!-- permet de mettre des commentaires -->
+<pre>
+    permet
+    d'eviter
+    de mettre
+    des <br>
+    pour
+    le retour
+    à la ligne
+</pre>
+<p> permet de mettre du texte en <b> gras </b> </p>
+<p> et celle la en <em> italique </em> </p>
+<map> il faudras recherché a propos de ça pour isaac (image cliquable)
+<form (action(action permet de définir un lien ou vas etre redirigé le formulaire et les donées)method(GET,POST(interfaçage))enctype(importante pour upload fichier sur formulaire))="">
+    <label for="name de l'input"> e nom que tu veut lui donner </label>
+    <input (pour envoyer) type="submit"(pour soumettre le formulaire) value="envoyer"(nom du bouton)>
+    <input type="text" name="utilie mais chépapourquoi"  placeholder="à la place de value on peut mettre un value ont peut mettre ça pour des valeurs par defauts"="tout ça a servie pour faire taper un texte comme un pseudo par exemple"
+    <textearea name="le nom" id="CSS/Java script" cols="largeur" rows="nbr ligne">le texte se place ici</textearea>
+    <input type="hidden" name="" value> permet de faire des champs cacher>
+    <input type="checkbox" name="" value=""permet de faire des coche"(checked permet de définir un bouton comme déja cocher)> nom que l'on vut donnet a la case
+    <input type="radio" name="" value="permet de liée different bouton ensemble s'il ont le meme nom(ont peut en cocher qu'un)"> pareille qu'en haut
+    <select name="permet de faire une liste deroulante de differents element" id="">
+        <option value="nom d'un input" (selected pour mettre un éléments séléctionner de base)>nom que l'on veut donnet a l'element</option>
+    </select>
+/form>
+<table (permet de faire un tableau) border=""(permet de mettre des bordures) cellpading=""(rajoute une marge intérieur)cellspacing=""(rajoute de l'espace entre les cellule)width="%"(regle la largeur)>
+    <tr>permet de définir des lignes dans un tableau
+    <td colspan= permet de fusionner des colonnes>permet de mettre des colonnes au tableau</td>
+    <th rowspan= pareille mais avec les lignes>permet de mettre en gras et centrée dans un tableau</th>
+    </tr>
+</table>
+                                    CSS
+<h1 style="color:red;"> permet de changer la couleur du texte</h1>
+<style>
+    p{
+        color : green; (met tout les <p> de la couleur voulu)
+    }
+</style>
+.permet-de-définir-des-class{
+    color:blue;
+}
+<p class="permet-de-definir-des-class"></p>
+
+#permet-de-définir-un-id{
+    color:green; (couleur)
+    color: #BBBBBB; (exadécimal)
+    color: rgba(0,0,0,0.3(transparence));
+    font-weight: bold (gras);
+    font-weight: lighter (plus fin);
+    font-weight: normal;
+    font-weight: bolder; (trés gras)
+    font-weight: 230; (ont peut utiliser des chiffres)
+    font-family: "Arial" (police d'écriture)
+    text-align: right; (left;right;center;justify (mettre les textes en bloc) )(alignés le texte ou on veut)
+    text-decoration: line-through;(underline; overline; line-trought; blink(clignotant))
+    line-height: 30px; (défini un espacements entre les lignes)
+    font-style: italic;
+    font-variant: small-caps; (petites capitale)
+    background: lightgreen; (couleur de fond)
+}
+a{
+    text-decoration: none; (enlever le soulignement des liens)
+}
+<p id="permet-de-definir-un-id"></p>
+div{
+    display:block;
+    width:200px; (largeur de la div= 200px)
+    height:300px:(longueur de la div= 300px)
+    border: 5px dashed red; (dashed; solid(trait continu))(permet de mettre une bordure en pointillé rouge de 5pixel)
+    margin-left: 15px; (left; right; bottom; top)(permet de mettre une marge)
+    margin : 0 14px 15px 67px; (haut,droite,bas,gauche)
+    margin : O auto; (permet de centrer un éléments)
+    margin = padding (padding = marge intérieur)
+}
+span{ (on ne peut ni définir de hauteur ni de largeur à une span) ou encore il est impossible de mettre une marge verticale.
+    display:inline; 
+}
+float:left; (simuler comportements text en gardant la propriété  bloc)
