@@ -1,7 +1,27 @@
 h1 {
+    font-size : 50px;
     color:#ffffff
 }
 
 body {
- background: linear-gradient(to right, #ff3300, #000000);
+   background: linear-gradient(to right, #ff3300, #000000);
+   font-size : 20px;
+   color:#ffffff;
+} 
+
+h2 {
+   color:#ffffff;
+   font-size : 30px;
+
+}
+
+object {
+    font-size : 30px;
+    font-weight: bold;
+    
+}
+
+h3 {
+    font-size: 50px;
+
 }
