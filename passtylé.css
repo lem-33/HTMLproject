@@ -3,13 +3,16 @@
     font-size: 1000%;
 }
 .titredepage{
-    font-size:500%;
+    font-size:700%;
     text-align: center;
 }
-body{
+.bodi{
     background: linear-gradient(to right,green, yellow);
 }
+.bodii{
+    background: linear-gradient(to right, green, pink, black, white, yellow, red, blue, purple);
+}
 .recette{
-    font-size: 200%;
+    font-size: 400%;
     color:black;
 }
