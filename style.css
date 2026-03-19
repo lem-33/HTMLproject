@@ -4,3 +4,19 @@ background-image: url("Minecraft_tableau.png");
 background-repeat: no-repeat;
 background-size: cover;
 }
+h1 {
+  text-align: center;
+}
+.divague{
+  background-color: whitesmoke;
+  border-radius: 30px;
+  border: 1% solid rgb(95 97 110);
+  padding: 3%;
+  width: 85%;
+}
+#centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
