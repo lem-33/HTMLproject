@@ -1,11 +1,14 @@
+@font-face {
+  font-family: myFont; /* set name */
+  src: url("Funnel_Display/FunnelDisplay-VariableFont_wght.ttf"); /* url of the font */
+}
+
 body
 {
-background-image: url("Minecraft_tableau.png");
+background-image: url("image.jpeg");
 background-repeat: no-repeat;
 background-size: cover;
-}
-h1 {
-  text-align: center;
+background-attachment: fixed
 }
 .divague{
   background-color: whitesmoke;
@@ -16,7 +19,17 @@ h1 {
 }
 #centered {
 	position: absolute;
-	top: 50%;
+	top: 10%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -0%);
+}
+.partie{
+  font-size: 146%;
+}
+.titre{
+  font-size: 253%;
+  text-align: center;
+}
+p{
+  font-family : myFont;
 }
