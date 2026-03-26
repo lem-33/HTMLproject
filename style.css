@@ -1,11 +1,11 @@
 @font-face {
-  font-family: myFont; /* set name */
-  src: url("Funnel_Display/FunnelDisplay-VariableFont_wght.ttf"); /* url of the font */
+  font-family: myFont;
+  src: url("Funnel_Display/FunnelDisplay-VariableFont_wght.ttf");
 }
 
 body
 {
-background-image: url("image.jpeg");
+background-image: url("image.png");
 background-repeat: no-repeat;
 background-size: cover;
 background-attachment: fixed
@@ -32,4 +32,19 @@ background-attachment: fixed
 }
 p{
   font-family : myFont;
+}
+.glitchlayer{
+  position: absolute;
+  content: "Click me";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50px;
+  opacity: 0;
+  transition: all 0.15s ease;
 }
