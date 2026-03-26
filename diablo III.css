@@ -4,7 +4,13 @@ h1 {
 }
 
 body {
-   background: linear-gradient(to right, #ff3300, #000000);
+    margin: 0;
+    background: radial-gradient(
+        circle at center,
+        #2b0033,
+        #120012,
+        #000000
+    );
    font-size : 20px;
    color:#ffffff;
 } 
@@ -25,3 +31,14 @@ h3 {
     font-size: 50px;
 
 }
+
+.lien {
+    color:#ffffff;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+.lien:hover {
+    color: rgb(212, 212, 212);
+}
+
