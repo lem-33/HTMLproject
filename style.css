@@ -33,14 +33,11 @@ background-attachment: fixed
 p{
   font-family : myFont;
 }
-body {
-  display: flex;
-  justify-content: flex-end; /* Modification : alignement à droite */
-  align-items: center;
-  min-height: 100vh;
-}
 button, button::after {
-  position: relative;
+  position: absolute;
+  right: 3%;
+  bottom: 1%;
+  
   width: 380px;
   height: 86px;
   font-size: 55px;
