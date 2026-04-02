@@ -4,6 +4,7 @@ h1 {
 }
 
 body {
+    text-align: center;
     margin: 0;
     background: radial-gradient(
         circle at center,
@@ -38,7 +39,11 @@ h3 {
     font-weight: bold;
     transition: color 0.2s;
 }
+
 .lien:hover {
     color: rgb(212, 212, 212);
 }
 
+.endgame {
+    font-size : 30px
+}
