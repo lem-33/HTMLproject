@@ -7,7 +7,6 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Diablo III : une modernisation controversée</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <h1 style = "text-align : center;"> Diablo III modernise le genre en divisant la communauté</h1>
     </head>
@@ -84,5 +83,21 @@
         <a href="https://fr.wikipedia.org/wiki/Diablo_III:_Reaper_of_Souls" class="lien"> - infos </a>
         <br>
         <a href="https://www.jeuxvideo.com/jeux/pc/jeu-42194/avis/" class="lien"> - les avis </a>
+
+        <div id="overlay">
+        <div id="cookie-box">
+        <h2>Uzrael</h2>
+        <p>vendez moi votre âme ?</p>
+        <button class="refuse"
+            onmouseover="this.innerText='Accepter'"
+            onmouseout="this.innerText='Refuser'"
+            onclick="refuser()">
+            Refuser
+        <button class="accept" onclick="accepter()">Accepter</button>
+        </button>
+        </div>
+        </div>
+
+  <script src="cookie.js"></script>
     </body>
 </html>
