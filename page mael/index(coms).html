@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mods Explorer</title>
+<link rel="stylesheet" href="trésstylé.css">
+</head>
+<body>
+  <script src="script.js"></script>
+<h1>Mods/Modpacks</h1>
+<div class="controls">
+  <input id="search" placeholder="Rechercher...">
+  <select id="type">
+    <option value="mods">Mods</option>
+    <option value="modpacks">Modpacks</option>
+  </select>
+  <select id="sort">
+    <option value="downloads">Popularité</option>
+    <option value="name">Nom</option>
+  </select>
+</div>
+<div class="categories" id="categories"></div>
+<div class="grid" id="grid"></div>
+<script>
+//Définition des variables par rapport à l'ID du HTML
+const grid = document.getElementById('grid'); 
+const search = document.getElementById('search');
+const sort = document.getElementById('sort');
+const type = document.getElementById('type');
+const categoriesDiv = document.getElementById('categories');
+//Définitions des variables
+let allMods = [];
+let selectedCategory = null;
+// Récupérer les données dans le fichier mods.db
+async function loadMods() {
+  const endpoint = type.value === "mods" ? "/mods" : "/modpacks";
+  /*
+  Pareil que ça
+  if (type.value === "mods")
+  {
+    const endpoint = "/mods";
+  } else {
+    const endpoint = "/modpacks";
+  }
+  */
+  console.log("fetching", endpoint, search.value);
+  const res = await fetch(`${endpoint}?q=${encodeURIComponent(search.value)}`);
+  const data = await res.json();
+  console.log(data); // debug
+  allMods = data; //Bon j'ai pas tt compris mais ça met la data dans tt les mods
+  buildCategories();
+  renderMods();
+}
+function buildCategories() {
+  const allCategories = new Set();  //Dicos en python globalement
+  allMods.forEach(mod => {
+    try {
+      const cats = JSON.parse(mod.categories || "[]");
+      cats.forEach(c => 
+        allCategories.add(c)
+    );
+    } catch {}
+  });
+  /*
+  Equiv python de
+  for mod in allMods:
+    try (cats = JSON.parse(mod.categories || "[]")):
+      for c in cats:
+        allCategories.add(c)
+    except errorJspQuoi:
+      print("Erreur")
+  */
+  categoriesDiv.innerHTML = "";
+  //Le code HTML dans categoriesDiv est vide
+  //Création des boutons de catégories
+  allCategories.forEach(cat => {
+    const btn = document.createElement('div');  //Nouveau élément "div" créé dans le document et affecté dans la variable 'btn'
+    btn.className = "category"; //La classe (class en html) du bouton devient 'category'
+    btn.textContent = cat;  //Le texte du bouton devient le nom de la catégorie ('forge','fabric','ftb'...)
+    //Quand le div dans la variable 'btn' est cliqué, on appelle la fonction lambda
+    //Rappel : en python, la fonction lambda c'est une fonction 'locale'
+    /*
+    En python
+    x = 5
+    x = lambda arg : arg*15
+    print(x)
+    >> 75
+    Mieux que
+    x = 5
+    def MultiplierParQuinze(arg):
+      return arg*15
+    x = MultiplierParQuinze(x)
+    print(x)
+    >> 75
+    */
+    btn.onclick = () => {
+      selectedCategory = (selectedCategory === cat) ? null : cat; 
+      // Si btn est déjà selectionné (selectedCategory === cat), alors la catégorie sélectionnée devient 'null', (donc aucune)
+      // Sinon, ça devient cette catégorie (selectedCategory = cat)
+      renderMods();
+      updateCategoryUI();
+    };
+    categoriesDiv.appendChild(btn); //On ajoute 'en enfant' (plus bas dans la hiérarchie) le 'btn'
+    /*
+    RAPPEL
+    /dossier1
+     | /dossier2
+     | | /coucou.txt
+     "dossier1" est le parent de "dossier2"
+     "dossier2" est le parent de "coucou.txt"
+     "coucou.txt" est l'enfant de "dossier2"
+     ATTENTION "coucou.txt" n'est pas l'enfant de "dossier1", c'est le petit-fils (? jsp si ça se dit comme ça mais oklm)
+    */
+  });
+}
+//Affichage de l'overlay gris sur le bouton
+function updateCategoryUI() { //Déclaration de la fonction updateCategoryUI
+  document.querySelectorAll('.category').forEach(el => {  //Pour chaque élément 'el' parmi tous les éléments dans le html qui ont la classe 'category'
+    el.classList.toggle('active', el.textContent === selectedCategory); //"el.classList.toggle" permet d'ajouter/supprimer une classe donnée sur un élément selon une condition
+    //Dans ce cas-ci, on ajoute/supprime la classe 'active'(ce qui donne la couleur grise au bouton quand il est sélectionné) selon 'el.textContent === selectedCategory'.
+    //Donc le bouton est 'active' si la catégorie sélectionnée actuelle est celle du bouton (qu'on a marqué plus tôt dans le texte voir ligne 155)
+  });
+  /* 
+  Transcription Python/Pseudo-code
+  boutonsDeCategorie = "document.querySelectorAll('.category')"
+  for el in boutonsDeCategorie:
+    if selectedCategory === el.texte:
+      el.AjouterOuSupprimerClasse('active', "Ajouter")
+    else:
+      el.AjouterOuSupprimerClasse('active', "Supprimer")
+  */
+}
+//Affiche les bons mods
+function renderMods() {
+  let mods = [...allMods];  //Comme en python, copier une liste (mods = allMods.copy() ou mods = allMods[:])
+  if (selectedCategory) { //Si une catégorie est sélectionnée (!= null)
+    mods = mods.filter(mod => { //mods.filter renvoie seulement les mods qui correspondent à la catégorie
+      try {
+        const cats = JSON.parse(mod.categories || "[]");  //cats est la variable qui contient les catégories du mod 'mod'
+        return cats.includes(selectedCategory); //renvoie True ou False, si les catégories 'cats' du mod contiennent la catégorie sélectionnée
+      } catch { return false; }
+    });
+  }
+  /*
+  Equivalent python
+  try:
+    cats = json.loads(mod["categories"] or "[]")
+    return selected_category in cats
+  except:
+    return False
+  mods = list(filter(keep_mod, mods))
+  */
+  //Ca triee du plus grand au plus petit
+  if (sort.value === "downloads") {
+    mods.sort((a, b) => b.downloads - a.downloads);
+  } else {
+    mods.sort((a, b) => a.name.localeCompare(b.name));  //localeCompare c'est pour les charactères spéciaux
+  }
+  grid.innerHTML = "";  //Vider l'HTML de la 'grid'
+  //Création de la carte du mod
+  mods.forEach(mod => { //S'éxecute pour chaque mod dans les mods
+    const card = document.createElement('div'); //Nouvel élément div dans la variable 'card'
+    card.className = "card";  //Appliquer la classe 'card'
+    //Définition du HTML interne
+    card.innerHTML = `
+      <img src="${mod.icon}" onerror="this.src='https://via.placeholder.com/50'">
+      <div class="title">${mod.name}</div>
+      <div class="desc">${(mod.description || "").substring(0, 100)}...</div>
+      <div class="downloads">⬇ ${mod.downloads}</div>
+    `;
+    /*
+    une image avec l'icône correspondante (dans la database), sauf si elle existe pas, alors placeholder 
+    Une div avec la classe 'title' et le texte correspondant au nom du mod
+    Une div avec la classe 'desc' et le texte correspondant à la desc (réduite aux 100 premiers caractères avec substring)
+    Une div avec la classe 'downloads' et le texte correspondant aux nombres de téléchargements
+    */
+    grid.appendChild(card); //Puis on ajoute la nouvelle carte à la grille 'grid'
+  });
+}
+// events
+search.addEventListener('input', loadMods);   //Quand le user recherche qqchose dans la search box 'search', on lance la fonctin loadMods
+sort.addEventListener('change', renderMods);  //Quand le user change le mode de tri 'sort', on re-déssine les mods
+type.addEventListener('change', loadMods);    //Quand le user change le type 'type', on recharge les mods
+//start
+loadMods(); //Juste ça se lance au début
+
+</script>
+</body>
+</html>
