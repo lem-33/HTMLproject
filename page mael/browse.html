@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mods Explorer</title>
+<link rel="stylesheet" href="trésstylé.css">
+</head>
+<body>
+<h1> Mods / Modpacks</h1>
+<div class="controls">
+  <input id="search" placeholder="Rechercher...">
+  <select id="type">
+    <option value="mods">Mods</option>
+    <option value="modpacks">Modpacks</option>
+  </select>
+  <select id="sort">
+    <option value="downloads">Popularité</option>
+    <option value="name">Nom</option>
+  </select>
+</div>
+<div class="categories" id="categories"></div>
+<div class="grid" id="grid"></div>
+<script>
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const sort = document.getElementById('sort');
+const type = document.getElementById('type');
+const categoriesDiv = document.getElementById('categories');
+let allMods = [];
+let selectedCategory = null;
+async function loadMods() {
+  const endpoint = type.value === "mods" ? "/mods" : "/modpacks";
+  console.log("fetching", endpoint, search.value);
+  const res = await fetch(`${endpoint}?q=${encodeURIComponent(search.value)}`);
+  const data = await res.json();
+  console.log(data); 
+  allMods = data;
+  buildCategories();
+  renderMods();
+}
+function buildCategories() {
+  const allCategories = new Set();
+  allMods.forEach(mod => {
+    try {
+      const cats = JSON.parse(mod.categories || "[]");
+      cats.forEach(c => allCategories.add(c));
+    } catch {}
+  });
+  categoriesDiv.innerHTML = "";
+  allCategories.forEach(cat => {
+    const btn = document.createElement('div');
+    btn.className = "category";
+    btn.textContent = cat;
+    btn.onclick = () => {
+      selectedCategory = (selectedCategory === cat) ? null : cat;
+      renderMods();
+      updateCategoryUI();
+    };
+    categoriesDiv.appendChild(btn);
+  });
+}
+function updateCategoryUI() {
+  document.querySelectorAll('.category').forEach(el => {
+    el.classList.toggle('active', el.textContent === selectedCategory);
+  });
+}
+function renderMods() {
+  let mods = [...allMods];
+  if (selectedCategory) {
+    mods = mods.filter(mod => {
+      try {
+        const cats = JSON.parse(mod.categories || "[]");
+        return cats.includes(selectedCategory);
+      } catch { return false; }
+    });
+  }
+  if (sort.value === "downloads") {
+    mods.sort((a, b) => b.downloads - a.downloads);
+  } else {
+    mods.sort((a, b) => a.name.localeCompare(b.name));
+  }
+  grid.innerHTML = "";
+  mods.forEach(mod => {
+    const card = document.createElement('div');
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${mod.icon}" onerror="this.src='https://via.placeholder.com/50'">
+      <div class="title">${mod.name}</div>
+      <div class="desc">${(mod.description || "").substring(0, 100)}...</div>
+      <div class="downloads">⬇ ${mod.downloads}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+search.addEventListener('input', loadMods);
+sort.addEventListener('change', renderMods);
+type.addEventListener('change', loadMods);
+loadMods();
+</script>
+</body>
+</html>
